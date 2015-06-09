@@ -7,3 +7,5 @@
 *.suo
 /TestWCFProxy/obj/Debug
 /TestWCFProxy/bin/Debug
+/TestWebAPI/TestWebServiceThing/bin
+/TestWebAPI/TestWebServiceThing/obj/Debug

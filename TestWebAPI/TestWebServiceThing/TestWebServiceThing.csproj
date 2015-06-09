@@ -104,7 +104,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TestWebService\TestWCFProxy\TestWCFProxy.csproj">
+    <ProjectReference Include="..\..\TestWCFProxy\TestWCFProxy.csproj">
       <Project>{ED5F91EE-3533-44EE-9469-D7CBD9AD8B1A}</Project>
       <Name>TestWCFProxy</Name>
     </ProjectReference>
