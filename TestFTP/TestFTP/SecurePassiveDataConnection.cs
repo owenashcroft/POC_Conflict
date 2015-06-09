@@ -41,7 +41,7 @@ namespace TestFTP
         {
             var fileName = result.AsyncState as string;
 
-            Console.WriteLine("File {0} being transfer", fileName);
+            Console.WriteLine("File {0} being transferred", fileName);
 
             var dataClient = _passiveListener.EndAcceptTcpClient(result);
             var resultFromClient = new StringBuilder();
@@ -73,7 +73,7 @@ namespace TestFTP
             if (_dataProcessor.ProcessData(ConvertToStringAndRemoveExcessBufferCrap(resultFromClient)))
             {
                 _writer.Send("226 file transferred correctly!");
-                return;
+               return;
             }
 
             _writer.Send("451 validation error!");

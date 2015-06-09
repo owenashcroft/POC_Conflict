@@ -17,11 +17,13 @@ namespace TestFTP
     {
         private readonly string _baseAddress;
         private readonly string _url;
+        private readonly IValidation _validation;
 
-        public DataProcessor(string baseAddress, string url)
+        public DataProcessor(string baseAddress, string url, IValidation validation)
         {
             _baseAddress = baseAddress;
             _url = url;
+            _validation = validation;
         }
 
         public bool ProcessData(string upload)
@@ -35,7 +37,7 @@ namespace TestFTP
                 if (IsIgnorableBlankRow(row)) 
                     continue;
 
-                if (row.Count() != 5)
+                if (!_validation.IsValid(row))
                     return false;
 
                 toSumbit.Add(new ClientData(row[0], row[1], row[2], row[3], row[4]));

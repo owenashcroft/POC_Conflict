@@ -52,6 +52,7 @@
     <Compile Include="IDataProcessor.cs" />
     <Compile Include="IFtpCommand.cs" />
     <Compile Include="IReader.cs" />
+    <Compile Include="IValidation.cs" />
     <Compile Include="IWriter.cs" />
     <Compile Include="KeepAliveCommand.cs" />
     <Compile Include="ListCommand.cs" />
@@ -72,6 +73,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="server.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
