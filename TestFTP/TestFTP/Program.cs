@@ -11,7 +11,8 @@ namespace TestFTP
         {
             var baseAddress = ConfigurationManager.AppSettings["WebApiBaseAddress"];
             var url = ConfigurationManager.AppSettings["WebApiUrl"];
-            var ftp = new FtpWrapper(IPAddress.Any, 21, new DataProcessor(baseAddress, url));
+            var certificate = ConfigurationManager.AppSettings["CertificateLocation"];
+            var ftp = new FtpWrapper(IPAddress.Any, 21, new DataProcessor(baseAddress, url), certificate);
             ftp.Initialize();
             while (ftp.Active()){ }
         }

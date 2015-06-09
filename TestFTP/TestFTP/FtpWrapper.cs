@@ -12,11 +12,13 @@ namespace TestFTP
     {
         private readonly TcpListener _listener;
         private readonly IDataProcessor _dataProcessor;
+        private readonly string _certificate;
 
-        public FtpWrapper(IPAddress ipAddress, int port, IDataProcessor dataProcessor)
+        public FtpWrapper(IPAddress ipAddress, int port, IDataProcessor dataProcessor, string certificate)
         {
             _listener = new TcpListener(ipAddress, port);
             _dataProcessor = dataProcessor;
+            _certificate = certificate;
         }
 
         public void Initialize()
@@ -37,7 +39,7 @@ namespace TestFTP
             {
                 new ProtectionBufferSizePrivateCommand(),
                 new ProtectionPrivateCommand(),
-                new AuthTlsCommand(@"c:\temp\server.cer"),
+                new AuthTlsCommand(_certificate),
                 new UserCommand(), 
                 new PasswordCommand(),
                 new KeepAliveCommand(),
