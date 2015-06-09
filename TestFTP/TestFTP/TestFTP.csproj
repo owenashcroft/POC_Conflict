@@ -73,9 +73,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="server.cer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="x509Cert.cer" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
