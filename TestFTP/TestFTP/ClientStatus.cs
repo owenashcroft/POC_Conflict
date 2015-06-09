@@ -13,7 +13,7 @@ namespace TestFTP
         private IWriter _writer;
         private IReader _reader;
         private IFtpDataConnection _dataConnection;
-        private X509Certificate _cert;
+        private X509Certificate2 _cert;
         private readonly IDataProcessor _dataProcessor;
 
         public ClientStatus(TcpClient client, IWriter writer, IReader reader, IDataProcessor dataProcessor)
@@ -69,7 +69,7 @@ namespace TestFTP
 
         public IFtpDataConnection DataConnection { get {  return _dataConnection; } }
 
-        public void MakeSecure(X509Certificate cert)
+        public void MakeSecure(X509Certificate2 cert)
         {
             _cert = cert;
             var sslStream = WrapStream(cert);
@@ -77,7 +77,7 @@ namespace TestFTP
             _reader = new Reader(new StreamReader(sslStream));
         }
 
-        private SslStream WrapStream(X509Certificate cert)
+        private SslStream WrapStream(X509Certificate2 cert)
         {
             var stream = _client.GetStream();
             var sslStream = new SslStream(stream);

@@ -15,7 +15,7 @@ namespace TestFTP
         public void DoOperation(string command, ClientStatus clientStatus)
         {
             clientStatus.SendMessage("234 TLS connection");
-            var cert = new X509Certificate(_certificate);
+            var cert = new X509Certificate2(_certificate, "password");
             clientStatus.MakeSecure(cert);
         }
     }
