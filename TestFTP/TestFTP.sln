@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFTP", "TestFTP\TestFTP.csproj", "{A7E00EDC-BD13-4B30-A3F5-558D591126BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWCFProxy", "..\TestWebService\TestWCFProxy\TestWCFProxy.csproj", "{ED5F91EE-3533-44EE-9469-D7CBD9AD8B1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWCFProxy", "..\TestWCFProxy\TestWCFProxy.csproj", "{ED5F91EE-3533-44EE-9469-D7CBD9AD8B1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

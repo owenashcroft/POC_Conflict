@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/TestFTP/packages
+/TestFTP/TestFTP
+*.suo
+/TestWCFProxy/obj/Debug
+/TestWCFProxy/bin/Debug
