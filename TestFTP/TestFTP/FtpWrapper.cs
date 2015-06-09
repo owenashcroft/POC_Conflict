@@ -37,7 +37,7 @@ namespace TestFTP
             {
                 new ProtectionBufferSizePrivateCommand(),
                 new ProtectionPrivateCommand(),
-                new AuthTlsCommand(),
+                new AuthTlsCommand(@"c:\temp\server.cer"),
                 new UserCommand(), 
                 new PasswordCommand(),
                 new KeepAliveCommand(),

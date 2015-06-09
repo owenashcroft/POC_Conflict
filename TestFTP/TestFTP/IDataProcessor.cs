@@ -15,13 +15,13 @@ namespace TestFTP
 
     public class DataProcessor : IDataProcessor
     {
-        private readonly ITestProject _testProjectService;
-        private readonly int _recordsPerSubmission;
+        private readonly string _baseAddress;
+        private readonly string _url;
 
-        public DataProcessor(ITestProject testProjectService, int recordsPerSubmission)
+        public DataProcessor(string baseAddress, string url)
         {
-            _testProjectService = testProjectService;
-            _recordsPerSubmission = recordsPerSubmission;
+            _baseAddress = baseAddress;
+            _url = url;
         }
 
         public bool ProcessData(string upload)
@@ -48,18 +48,18 @@ namespace TestFTP
 
         private void SendDataToService(List<ClientData> toSumbit)
         {
-            SubmitData(toSumbit).Wait();
+            SubmitData(toSumbit, _baseAddress, _url).Wait();
         }
 
-        private static async Task SubmitData(List<ClientData> toSubmit)
+        private static async Task SubmitData(List<ClientData> toSubmit, string baseAddress, string _url)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost");
+                client.BaseAddress = new Uri(baseAddress);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await client.PostAsJsonAsync("webapitest/api/main/submit", toSubmit);
+                var response = await client.PostAsJsonAsync(_url, toSubmit);
 
                 if (response.IsSuccessStatusCode)
                 {
