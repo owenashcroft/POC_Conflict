@@ -5,16 +5,16 @@ namespace TestWCFProxy
     [DataContract]
     public class ClientData
     {
-        [DataMember]
-        private readonly string _value1;
-        [DataMember]
-        private readonly string _value2;
-        [DataMember]
-        private readonly string _value3;
-        [DataMember]
-        private readonly string _value4;
-        [DataMember]
-        private readonly string _value5;
+        [DataMember(Name="Value1")]
+        private string _value1;
+        [DataMember(Name="Value2")]
+        private string _value2;
+        [DataMember(Name="Value3")]
+        private string _value3;
+        [DataMember(Name="Value4")]
+        private string _value4;
+        [DataMember(Name="Value5")]
+        private string _value5;
 
         public string Value1
         {
