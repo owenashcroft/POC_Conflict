@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MassTransit;
+using MassTransit.BusConfigurators;
 
 namespace TestMessageConsumer
 {
@@ -11,16 +8,31 @@ namespace TestMessageConsumer
     {
         static void Main(string[] args)
         {
-            var queueName = ConfigurationManager.AppSettings["Queue"];
-            var interval = int.Parse(ConfigurationManager.AppSettings["Interval"]);
+            Console.WriteLine("Receiver: Listening to bus...");
+            
+            var bus = CreateBus("TestReceiver", busConfigurator =>
+            {
+                busConfigurator.Subscribe(subs =>
+                {
+                    subs.Consumer<ClientDataConsumer>().Permanent();
+                });
+            });
 
-            var sqlDataSink = new SqlDataSink(ConfigurationManager.ConnectionStrings["database"]);
+            Console.ReadLine();
 
-            var consumer = new Consumer(queueName, interval, sqlDataSink, new MessageHydrator());
+            bus.Dispose();
+        }
 
-            Console.WriteLine("Monitoring queue {0} every {1} seconds", queueName, interval);
+        public static IServiceBus CreateBus(string queueName, Action<ServiceBusConfigurator> moreInitialization)
+        {
+            var bus = ServiceBusFactory.New(x =>
+            {
+                x.UseRabbitMq();
+                x.ReceiveFrom("rabbitmq://localhost/TestReceiver");
+                moreInitialization(x);
+            });
 
-            consumer.Check();
+            return bus;
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using System.Threading;
 using System.Web.Http;
-using System.Web.Script.Serialization;
-using RabbitMQ.Client;
+using MassTransit;
+using MassTransit.BusConfigurators;
 using TestWCFProxy;
 
 namespace TestWebServiceThing.Controllers
@@ -19,23 +18,33 @@ namespace TestWebServiceThing.Controllers
         [HttpPost]
         public bool Submit(ClientData[] clientData)
         {
-            var factory = new ConnectionFactory() {HostName = "localhost"};
-            using (var connection = factory.CreateConnection())
-            {
-                using (var channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare("Queue1", true, false, false, null);
-                    var javaScriptSerializer = new JavaScriptSerializer();
+            var bus = CreateBus("TestSender", x => {  });
 
-                    var serializedClientData = clientData.Select(clientInfo => javaScriptSerializer.Serialize(clientInfo));
-                    foreach (var message in serializedClientData)
-                    {
-                        channel.BasicPublish("", "Queue1", null, Encoding.UTF8.GetBytes(message));
-                    }
-                }
+            foreach (var message in clientData)
+            {
+                bus.Publish(message, publishContext =>
+                {
+                    publishContext.SetHeader("Header 1","Header 1 Value");
+                    publishContext.SetDeliveryMode(DeliveryMode.Persistent);
+                });
+                Thread.Sleep(1);
             }
+            
+            bus.Dispose();
 
             return true;
+        }
+
+        public static IServiceBus CreateBus(string queueName, Action<ServiceBusConfigurator> moreInitialization)
+        {
+            var bus = ServiceBusFactory.New(x =>
+            {
+                x.UseRabbitMq();
+                x.ReceiveFrom("rabbitmq://localhost/TestSender");
+                moreInitialization(x);
+            });
+
+            return bus;
         }
     }
 }

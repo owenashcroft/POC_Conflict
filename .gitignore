@@ -4,8 +4,14 @@
 
 /TestFTP/packages
 /TestFTP/TestFTP
+/TestWebAPI/packages
+/TestMessageConsumer/packages
 *.suo
 /TestWCFProxy/obj/Debug
 /TestWCFProxy/bin/Debug
-/TestWebAPI/TestWebServiceThing/bin
+/TestWebAPI/TestWebServiceThing/bin/Debug
 /TestWebAPI/TestWebServiceThing/obj/Debug
+/TestMessageConsumer/TestMessageConsumer/bin/Debug
+/TestMessageConsumer/TestMessageConsumer/obj/Debug
+/TestFTP/TestFTP/bin/Debug
+/TestFTP/TestFTP/obj/Debug
